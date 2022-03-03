@@ -1,11 +1,11 @@
 {
-  "name": "serverless-aws-alias",
-  "version": "1.8.0",
-  "description": "Serverless plugin to support AWS function aliases",
+  "name": "serverless-aws-alias-v3",
+  "version": "3.0.0",
+  "description": "Serverless v3 plugin to support AWS function aliases",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/serverless-heaven/serverless-aws-alias"
+    "url": "https://github.com/Psycholive/serverless-aws-alias"
   },
   "scripts": {
     "test": "nyc ./node_modules/mocha/bin/_mocha \"test/**/*.js\" -R spec --recursive",
@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/serverless-heaven/serverless-aws-alias/issues"
   },
-  "homepage": "https://github.com/serverless-heaven/serverless-aws-alias#readme",
+  "homepage": "https://github.com/Psycholive/serverless-aws-alias#readme",
   "nyc": {
     "exclude": [
       "test/**/*.*"
@@ -55,7 +55,7 @@
     "get-installed-path": "^4.0.8",
     "mocha": "^8.2.1",
     "nyc": "^15.1.0",
-    "serverless": "^2.18.0",
+    "serverless": "^3.0.0",
     "sinon": "^9.2.3",
     "sinon-chai": "^3.5.0"
   }

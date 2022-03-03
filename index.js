@@ -35,7 +35,6 @@ class AwsAlias {
 		 */
 		this._stage = this._provider.getStage();
 		this._alias = this._options.alias || this._stage;
-		this._serverless.service.provider.alias = this._alias;
 
 		/**
 		 * Load stack helpers from Serverless installation.
@@ -45,14 +44,14 @@ class AwsAlias {
 				'plugins',
 				'aws',
 				'lib',
-				'monitorStack')
+				'monitor-stack')
 		);
 		const setBucketName = require(
 			Path.join(this._serverless.config.serverlessPath,
 				'plugins',
 				'aws',
 				'lib',
-				'setBucketName')
+				'set-bucket-name')
 		);
 
 		_.assign(
@@ -86,15 +85,37 @@ class AwsAlias {
 							alias: {
 								usage: 'Name of the alias',
 								shortcut: 'a',
-								required: true
+								required: true,
+								type: 'string',
 							},
 							verbose: {
 								usage: 'Enable verbose output',
 								shortcut: 'v',
-								required: false
+								required: false,
+								type: 'boolean',
 							}
 						}
 					}
+				}
+			},
+			package: {
+				options: {
+					alias: {
+						usage: 'Name of the alias',
+						shortcut: 'a',
+						required: false,
+						type: 'string'
+					},
+				}
+			},
+			deploy: {
+				options: {
+					alias: {
+						usage: 'Name of the alias',
+						shortcut: 'a',
+						required: false,
+						type: 'string'
+					},
 				}
 			}
 		};
