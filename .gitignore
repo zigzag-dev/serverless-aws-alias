@@ -12,3 +12,4 @@ coverage/
 
 # Code style tools
 .eslintcache
+/*.tgz

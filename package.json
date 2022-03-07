@@ -1,6 +1,6 @@
 {
   "name": "serverless-aws-alias-v3",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "Serverless v3 plugin to support AWS function aliases",
   "main": "index.js",
   "repository": {

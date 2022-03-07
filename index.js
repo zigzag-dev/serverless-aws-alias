@@ -117,7 +117,17 @@ class AwsAlias {
 						type: 'string'
 					},
 				}
-			}
+			},
+			s3deploy: {
+				options: {
+					alias: {
+						usage: 'Name of the alias',
+						shortcut: 'a',
+						required: false,
+						type: 'string'
+					},
+				}
+			},
 		};
 
 		this._hooks = {
