@@ -1,5 +1,4 @@
 [![serverless](http://public.serverless.com/badges/v3.svg)](http://www.serverless.com)
-[![npm][ico-npm-downloads]][link-npm]
 
 # This plugin is a copy of [serverless-aws-alias](https://www.npmjs.com/package/serverless-aws-alias)
 **NEW**
