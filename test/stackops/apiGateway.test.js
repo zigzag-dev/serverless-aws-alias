@@ -89,6 +89,17 @@ describe('API Gateway', () => {
 			expect(stage).to.have.a.nested.property('Properties.CacheClusterSize', 2);
 		});
 
+		it('should set general stage configuration (new custom)', () => {
+			awsAlias.serverless.service.custom.aliasStage = {
+				cacheClusterEnabled: true,
+				cacheClusterSize: 2
+			};
+
+			const stage = createStageResource('apiRef', 'deployment');
+			expect(stage).to.have.a.nested.property('Properties.CacheClusterEnabled', true);
+			expect(stage).to.have.a.nested.property('Properties.CacheClusterSize', 2);
+		});
+
 		it('should omit cacheClusterSize if not given', () => {
 			awsAlias.serverless.service.provider.aliasStage = {
 				cacheClusterEnabled: true

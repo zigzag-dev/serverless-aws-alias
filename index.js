@@ -21,6 +21,38 @@ const BbPromise = require('bluebird')
 	, updateFunctionAlias = require('./lib/updateFunctionAlias')
 	, deferredOutputs = require('./lib/deferredOutputs');
 
+const aliasStageCommonOptions = {
+	type: 'object',
+	properties: {
+		'cacheDataEncrypted':  { type: 'boolean' },
+		'cacheTtlInSeconds':  { type: 'integer' },
+		'cachingEnabled':  { type: 'boolean' },
+		'dataTraceEnabled':  { type: 'boolean' },
+		'loggingLevel':  { type: 'string' },
+		'metricsEnabled':  { type: 'boolean' },
+		'throttlingBurstLimit':  { type: 'integer' },
+		'throttlingRateLimit':  { type: 'number' },
+	},
+	additionalProperties: false,
+};
+
+const aliasStageCustomOptions = {
+	type: 'object',
+	properties: {
+		'cacheDataEncrypted':  { type: 'boolean' },
+		'cacheTtlInSeconds':  { type: 'integer' },
+		'cachingEnabled':  { type: 'boolean' },
+		'dataTraceEnabled':  { type: 'boolean' },
+		'loggingLevel':  { type: 'string' },
+		'metricsEnabled':  { type: 'boolean' },
+		'throttlingBurstLimit':  { type: 'integer' },
+		'throttlingRateLimit':  { type: 'number' },
+		'cacheClusterEnabled':  { type: 'boolean' },
+		'cacheClusterSize':  { type: 'integer' },
+	},
+	additionalProperties: false,
+};
+
 class AwsAlias {
 
 	constructor(serverless, options) {
@@ -129,6 +161,18 @@ class AwsAlias {
 				}
 			},
 		};
+
+		this._serverless.configSchemaHandler.defineCustomProperties({
+			properties: { aliasStage: aliasStageCustomOptions	},
+		});
+
+		this._serverless.configSchemaHandler.defineFunctionProperties('aws', {
+			properties: { aliasStage: aliasStageCommonOptions	},
+		});
+
+		this._serverless.configSchemaHandler.defineFunctionEventProperties('aws', 'http', {
+			properties: { aliasStage: aliasStageCommonOptions	},
+		});
 
 		this._hooks = {
 			'before:package:initialize': () => BbPromise.bind(this)

@@ -21,9 +21,6 @@ rules:
     - tab
     -
       MemberExpression: off
-  linebreak-style:
-    - error
-    - unix
   no-trailing-spaces: error
   semi:
     - error

@@ -123,14 +123,14 @@ Lambda invocation. This will call the aliased function version.
 Deployed stages have the alias stage variable set fixed, so a deployed alias stage is
 hard-wired to the aliased Lambda versions.
 
-### Stage configuration (NEW)
+### Stage configuration
 
 The alias plugin supports configuring the deployed API Gateway stages, exactly as
 you can do it within the AWS APIG console, e.g. you can configure logging (with
 or without data/request tracing), setup caching or throttling on your endpoints.
 
 The configuration can be done on a service wide level, function level or method level
-by adding an `aliasStage` object either to `provider`, `any function` or a `http event`
+by adding an `aliasStage` object either to `custom`, `any function` or a `http event`
 within a function in your _serverless.yml_. The configuration is applied hierarchically,
 where the inner configurations overwrite the outer ones.
 
@@ -176,7 +176,7 @@ Sample serverless.yml (partial):
 ```
 service: sls-test-project
 
-provider:
+custom:
   ...
   # Enable detailed error logging on all endpoints
   aliasStage:
