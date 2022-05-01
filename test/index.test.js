@@ -30,6 +30,7 @@ describe('AwsAlias', () => {
 		options = {
 			stage: 'myStage',
 			region: 'us-east-1',
+			commands: [], options: {}
 		};
 		serverless = new Serverless(options);
 		serverless.cli = new serverless.classes.CLI(serverless);

@@ -21,7 +21,7 @@ describe('#validate()', () => {
 	let awsAlias;
 
 	beforeEach(() => {
-		serverless = new Serverless();
+		serverless = new Serverless({commands: [], options: {}});
 		options = {
 			stage: 'myStage',
 			region: 'us-east-1',

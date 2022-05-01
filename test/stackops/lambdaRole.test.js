@@ -35,7 +35,7 @@ describe('lambdaRole', () => {
 			stage: 'myStage',
 			region: 'us-east-1',
 		};
-		serverless = new Serverless();
+		serverless = new Serverless({commands: [], options: {}});
 		serverless.setProvider('aws', new AwsProvider(serverless, options));
 		serverless.cli = new serverless.classes.CLI(serverless);
 		serverless.service.service = 'testService';

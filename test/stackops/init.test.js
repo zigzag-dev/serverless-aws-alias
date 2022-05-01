@@ -35,6 +35,7 @@ describe('SNS Events', () => {
 			alias: 'myAlias',
 			stage: 'myStage',
 			region: 'us-east-1',
+			commands: [], options: {}
 		};
 		serverless = new Serverless(options);
 		serverless.setProvider('aws', new AwsProvider(serverless));

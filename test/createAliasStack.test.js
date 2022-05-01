@@ -33,7 +33,7 @@ describe('createAliasStack', () => {
 	});
 
 	beforeEach(() => {
-		serverless = new Serverless();
+		serverless = new Serverless({commands: [], options: {}});
 		options = {
 			alias: 'myAlias',
 			stage: 'myStage',

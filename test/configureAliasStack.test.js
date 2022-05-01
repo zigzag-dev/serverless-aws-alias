@@ -35,9 +35,11 @@ describe('configureAliasStack', () => {
 			alias: 'myAlias',
 			stage: 'myStage',
 			region: 'us-east-1',
+			commands: [],
+			options: {},
 		};
 		serverless = new Serverless(options);
-		serverless.setProvider('aws', new AwsProvider(serverless));
+		serverless.setProvider('aws', new AwsProvider(serverless, {stage: 'myStage'}));
 		serverless.cli = new serverless.classes.CLI(serverless);
 		serverless.service.service = 'testService';
 		serverless.service.provider.compiledCloudFormationAliasTemplate = {};

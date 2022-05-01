@@ -35,7 +35,8 @@ describe('logs', () => {
 			alias: 'myAlias',
 			stage: 'dev',
 			region: 'us-east-1',
-			function: 'first'
+			function: 'first',
+			commands: [], options: {}
 		};
 		serverless = new Serverless(options);
 		serverless.setProvider('aws', new AwsProvider(serverless, options));

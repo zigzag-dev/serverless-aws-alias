@@ -36,6 +36,7 @@ describe('API Gateway', () => {
 			alias: 'myAlias',
 			stage: 'myStage',
 			region: 'us-east-1',
+			commands: [], options: {}
 		};
 		serverless = new Serverless(options);
 		serverless.service.service = 'testService';
