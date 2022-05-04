@@ -4,6 +4,7 @@
 **NEW**
 
 * Added support for serverless framework ver.3
+* Added support for step functions
 
 # Serverless AWS alias plugin
 
