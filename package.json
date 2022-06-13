@@ -1,11 +1,11 @@
 {
-  "name": "serverless-aws-alias-v3",
-  "version": "3.2.0",
+  "name": "@zigzag-dev/serverless-aws-alias-v3",
+  "version": "3.2.1",
   "description": "Serverless v3 plugin to support AWS function aliases",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Psycholive/serverless-aws-alias"
+    "url": "https://github.com/zigzag-dev/serverless-aws-alias"
   },
   "scripts": {
     "test": "nyc ./node_modules/mocha/bin/_mocha \"test/**/*.js\" -R spec --recursive",
@@ -24,7 +24,7 @@
   "bugs": {
     "url": "https://github.com/serverless-heaven/serverless-aws-alias/issues"
   },
-  "homepage": "https://github.com/Psycholive/serverless-aws-alias#readme",
+  "homepage": "https://github.com/zigzag-dev/serverless-aws-alias#readme",
   "nyc": {
     "exclude": [
       "test/**/*.*"
