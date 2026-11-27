@@ -247,6 +247,8 @@ class AwsAlias {
 		// Patch hooks to override our event replacements
 		const pluginManager = this.serverless.pluginManager;
 		const logHooks = pluginManager.hooks['logs:logs'];
+		// The hook list is changed in place on purpose.
+		// eslint-disable-next-line lodash/prefer-immutable-method
 		_.pullAllWith(logHooks, [ 'AwsLogs' ], (a, b) => a.pluginName === b);
 
 		// Extend the logs command if available

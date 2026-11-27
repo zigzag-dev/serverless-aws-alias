@@ -1,15 +1,19 @@
 {
   "name": "@zigzag-dev/serverless-aws-alias-v3",
-  "version": "3.2.2",
+  "version": "3.2.3",
   "description": "Serverless v3 plugin to support AWS function aliases",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "lib"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/zigzag-dev/serverless-aws-alias"
   },
   "scripts": {
-    "test": "nyc ./node_modules/mocha/bin/_mocha \"test/**/*.js\" -R spec --recursive",
-    "eslint": "node node_modules/eslint/bin/eslint.js --ext .js lib"
+    "test": "nyc mocha \"test/**/*.js\" -R spec --recursive",
+    "lint": "eslint --max-warnings=0 index.js lib eslint.config.js"
   },
   "author": "Frank Schmid <fschmid740@googlemail.com>",
   "license": "MIT",
@@ -36,27 +40,43 @@
     "report-dir": "./coverage"
   },
   "dependencies": {
-    "bluebird": "^3.7.2",
-    "chalk": "^4.1.0",
-    "lodash": "^4.17.20",
-    "moment": "^2.29.1",
-    "os": "^0.1.1",
-    "semver": "^7.3.4"
+    "bluebird": "3.7.2",
+    "chalk": "4.1.2",
+    "lodash": "4.18.1",
+    "moment": "2.31.0",
+    "semver": "7.8.6"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
-    "chai-subset": "^1.6.0",
-    "coveralls": "^3.1.0",
-    "eslint": "^6.8.0",
-    "eslint-plugin-import": "^2.22.1",
-    "eslint-plugin-lodash": "^7.1.0",
-    "eslint-plugin-promise": "^4.2.1",
-    "get-installed-path": "^4.0.8",
-    "mocha": "^8.2.1",
-    "nyc": "^15.1.0",
-    "serverless": "^3.0.0",
-    "sinon": "^9.2.3",
-    "sinon-chai": "^3.5.0"
+    "@eslint/compat": "2.1.1",
+    "@eslint/js": "10.0.1",
+    "chai": "6.3.0",
+    "chai-as-promised": "8.0.2",
+    "chai-subset": "1.6.0",
+    "eslint": "10.15.0",
+    "eslint-plugin-lodash": "8.1.0",
+    "eslint-plugin-promise": "7.3.0",
+    "get-installed-path": "4.0.8",
+    "globals": "17.14.0",
+    "mocha": "12.0.3",
+    "nyc": "18.0.0",
+    "serverless": "3.40.0",
+    "sinon": "22.1.0",
+    "sinon-chai": "4.0.1"
+  },
+  "overrides": {
+    "mocha": {
+      "glob": "14.0.6",
+      "minimatch": "11.0.9"
+    },
+    "nyc": {
+      "glob": "14.0.6",
+      "minimatch": "11.0.9"
+    }
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "engines": {
+    "node": ">=24"
   }
 }

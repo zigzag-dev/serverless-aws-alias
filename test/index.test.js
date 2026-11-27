@@ -11,10 +11,10 @@ const AwsAlias = require('../index');
 
 const serverlessPath = getInstalledPathSync('serverless', { local: true });
 const AwsProvider = require(`${serverlessPath}/lib/plugins/aws/provider`);
-const Serverless = require(`${serverlessPath}/lib/Serverless`);
+const Serverless = require(`${serverlessPath}/lib/serverless`);
 
-chai.use(require('chai-as-promised'));
-chai.use(require('sinon-chai'));
+chai.use(require('chai-as-promised').default);
+chai.use(require('sinon-chai').default);
 const expect = chai.expect;
 
 describe('AwsAlias', () => {
@@ -113,10 +113,13 @@ describe('AwsAlias', () => {
 
 		before(() => {
 			sandbox = sinon.createSandbox();
-			awsAlias = new AwsAlias(serverless, options);
 		});
 
 		beforeEach(() => {
+			// Create the plugin for each test on the Serverless instance from the outer beforeEach.
+			// Serverless v3 rejects a second definition of the plugin's custom properties
+			// on the same instance, so the plugin cannot be reused across instances.
+			awsAlias = new AwsAlias(serverless, options);
 			validateStub = sandbox.stub(awsAlias, 'validate');
 			configureAliasStackStub = sandbox.stub(awsAlias, 'configureAliasStack');
 			createAliasStackStub = sandbox.stub(awsAlias, 'createAliasStack');

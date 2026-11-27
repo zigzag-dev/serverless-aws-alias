@@ -12,11 +12,11 @@ const AWSAlias = require('../../index');
 
 const serverlessPath = getInstalledPathSync('serverless', { local: true });
 const AwsProvider = require(`${serverlessPath}/lib/plugins/aws/provider`);
-const Serverless = require(`${serverlessPath}/lib/Serverless`);
+const Serverless = require(`${serverlessPath}/lib/serverless`);
 
-chai.use(require('chai-as-promised'));
+chai.use(require('chai-as-promised').default);
 chai.use(require('chai-subset'));
-chai.use(require('sinon-chai'));
+chai.use(require('sinon-chai').default);
 const expect = chai.expect;
 
 describe('API Gateway', () => {

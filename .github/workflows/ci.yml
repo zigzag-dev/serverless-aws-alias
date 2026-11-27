@@ -1,0 +1,74 @@
+# Lint and test every pull request and every push to master.
+# On a push to master, publish the package to GitHub Packages when the version in
+# package.json is not published yet. When the version is already published, the
+# publish job does nothing, so a merge without a version bump does not publish.
+
+name: CI
+
+on:
+  pull_request:
+    branches: [master]
+  push:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          cache: npm
+      - run: npm ci
+      - name: Lint
+        run: npm run lint
+      - name: Test
+        run: npm test
+
+  publish:
+    needs: test
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+      packages: write
+    concurrency:
+      group: publish
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version-file: .node-version
+          registry-url: https://npm.pkg.github.com
+          scope: '@zigzag-dev'
+      - name: Check whether this version is already published
+        id: check
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          name="$(node -p 'require("./package.json").name')"
+          version="$(node -p 'require("./package.json").version')"
+          published="$(npm view "${name}" versions --json)"
+          if node -e 'const v = JSON.parse(process.argv[1]); process.exit([v].flat().includes(process.argv[2]) ? 0 : 1);' "${published}" "${version}"; then
+            echo "${name}@${version} is already published. Nothing to do."
+            echo "publish=false" >> "${GITHUB_OUTPUT}"
+          else
+            echo "${name}@${version} is not published yet."
+            echo "publish=true" >> "${GITHUB_OUTPUT}"
+          fi
+      - name: Publish
+        if: steps.check.outputs.publish == 'true'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm publish --ignore-scripts

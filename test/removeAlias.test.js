@@ -12,10 +12,10 @@ const AWSAlias = require('../index');
 
 const serverlessPath = getInstalledPathSync('serverless', { local: true });
 const AwsProvider = require(`${serverlessPath}/lib/plugins/aws/provider`);
-const Serverless = require(`${serverlessPath}/lib/Serverless`);
+const Serverless = require(`${serverlessPath}/lib/serverless`);
 
-chai.use(require('chai-as-promised'));
-chai.use(require('sinon-chai'));
+chai.use(require('chai-as-promised').default);
+chai.use(require('sinon-chai').default);
 chai.use(require('chai-subset'));
 const expect = chai.expect;
 
@@ -159,13 +159,19 @@ describe('removeAlias', () => {
 			const requestResult = {
 				status: 'ok'
 			};
-			providerRequestStub.returns(BbPromise.resolve(requestResult));
+			const stackId = 'arn:aws:cloudformation:us-east-1:123456789012:stack/testService-myStage-myAlias/1';
+			providerRequestStub.withArgs('CloudFormation', 'describeStacks').returns(BbPromise.resolve({
+				Stacks: [ { StackId: stackId } ]
+			}));
+			providerRequestStub.withArgs('CloudFormation', 'deleteStack').returns(BbPromise.resolve(requestResult));
 			monitorStackStub.returns(BbPromise.resolve());
 
 			return expect(awsAlias.aliasRemoveAliasStack(slsStack1, [ aliasStack2 ], aliasStack1)).to.be.fulfilled
 			.then(() => BbPromise.all([
-				expect(providerRequestStub).to.have.been.calledOnce,
-
+				expect(providerRequestStub).to.have.been.calledTwice,
+				expect(providerRequestStub.getCall(0).args[1]).to.equal('describeStacks'),
+				expect(providerRequestStub.getCall(1).args[1]).to.equal('deleteStack'),
+				expect(monitorStackStub).to.have.been.calledOnceWithExactly('removal', { StackId: stackId }),
 			]));
 		});
 
